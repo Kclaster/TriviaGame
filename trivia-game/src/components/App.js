@@ -1,18 +1,17 @@
 import React from 'react';
 import Container from './Container';
+import Congratulations from './Congratulations';
 
 
 
 class App extends React.Component {
 
-
-
-
-
-
     render() {
         return (
-            <Container />
+            <div>
+                <Container />
+                <Congratulations />
+            </div>
         );
     }
 }
