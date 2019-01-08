@@ -1,7 +1,7 @@
 import React from 'react';
 import Timer from './Timer';
 import Question from './Question';
-import QuestionsArr from './QuestionsArr';
+import lordOfTheRings from '../questions list/lordOfTheRings';
 import Scoreboard from './Scoreboard';
 import Reset from './Reset';
 
@@ -9,16 +9,16 @@ import Reset from './Reset';
 class Container extends React.Component {
     constructor(props) {
         super(props);
-        this.randomNumber = Math.floor(Math.random() * (QuestionsArr.length - 1));
+        this.randomNumber = Math.floor(Math.random() * (lordOfTheRings.length - 1));
         this.handleRandomNumChange = this.handleRandomNumChange.bind(this);
         this.handleCorrectClick=this.handleCorrectClick.bind(this);
         this.handleIncorrectClick=this.handleIncorrectClick.bind(this);
         this.handleResetClick=this.handleResetClick.bind(this);
-        this.gamelength = 60;
+        this.gamelength = 60000;
 
         this.state = {
             //below creates a copy, not a reference
-            Questions: JSON.parse(JSON.stringify(QuestionsArr)),
+            Questions: JSON.parse(JSON.stringify(lordOfTheRings)),
             correctQuestion: [],
             incorrectQuestion: [],
             correctAnswer: [],
@@ -51,6 +51,14 @@ class Container extends React.Component {
 
 
     componentDidUpdate() {
+        if (this.state.Questions.length === 0) {
+            if (this.state.show) {
+            this.setState({count: 0});
+            this.setState({show: false});
+            this.setState({displayCounter: false});
+            clearInterval(this.myInterval);
+            };
+        };
         if (this.state.count === 0) {
             if (this.state.show) {
                 this.setState({displayCounter: false});
@@ -81,7 +89,7 @@ class Container extends React.Component {
     handleResetClick() {
         this.setState({
             //below creates a copy, not a reference
-            Questions: JSON.parse(JSON.stringify(QuestionsArr)),
+            Questions: JSON.parse(JSON.stringify(lordOfTheRings)),
             correctQuestion: [],
             incorrectQuestion: [],
             correctAnswer: [],
@@ -105,7 +113,6 @@ class Container extends React.Component {
     }
 
     render() {
-        console.log(this.state.Questions);
         return (
             <div>
                 <h1>Totally Trivial Trivia!</h1>
@@ -139,6 +146,8 @@ class Container extends React.Component {
 }
 
 
-//TODO: if Questions.length === 0 => return <Scoreboard />
+//TODO: 
+// 2. Fix time of scoreboard being different bug
+// 3. Make pretty
 
 export default Container;

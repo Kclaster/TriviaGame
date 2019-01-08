@@ -1,8 +1,11 @@
 import React from 'react';
+import '../style/Question.css'
 
 export default class Question extends React.Component {
     constructor(props) {
         super(props);
+        console.log(this.props.Questions.length);
+        if (this.props.Questions.length > 0) {
         this.randomNumber = Math.floor(Math.random() * (this.props.Questions.length - 1));
 
         this.state = {
@@ -23,7 +26,9 @@ export default class Question extends React.Component {
         this.thirdChoice = this.props.Questions[randomStart]["answer choices"][2];
         this.fourthChoice = this.props.Questions[randomStart]["answer choices"][3];
         this.rightAnswer = this.props.Questions[randomStart]["answer"];
-    }
+    };
+    
+    };
 
 
     updateUI = () => {
@@ -49,7 +54,7 @@ export default class Question extends React.Component {
 
 
     handleClick(trigger, answer, question) {
-        this.count = this.props.Questions.length - 1
+        this.count = this.props.Questions.length
         if (this.count > 0 ) {
         this.updateQuestions();
         this.count--;
@@ -65,21 +70,35 @@ export default class Question extends React.Component {
      
 
     render() {
+        if (this.props.Questions.length > 0) {
+
         if (!this.state.firstRound) {
             this.updateUI();
         } else {
 
         }
+    };
         return (
             <div>
-                <h3>{this.displayQuestion}</h3>
-                <h4 id="0" onClick={(e) => {this.handleClick(e.currentTarget.id, this.rightAnswer, this.displayQuestion)}}>{this.firstChoice}</h4>
+                <h3 className="displayQuestion">{this.displayQuestion}</h3>
+                <div className="question-container">
 
-                <h4 id="1" onClick={(e) => {this.handleClick(e.currentTarget.id, this.rightAnswer, this.displayQuestion)}}>{this.secondChoice}</h4>
+                    <div className="ind-question a">
+                        <h4 id="0" onClick={(e) => {this.handleClick(e.currentTarget.id, this.rightAnswer, this.displayQuestion)}}>{this.firstChoice}</h4>
+                    </div>
 
-                <h4 id="2" onClick={(e) => {this.handleClick(e.currentTarget.id, this.rightAnswer, this.displayQuestion)}}>{this.thirdChoice}</h4>
+                    <div className="ind-question b">
+                        <h4 id="1" onClick={(e) => {this.handleClick(e.currentTarget.id, this.rightAnswer, this.displayQuestion)}}>{this.secondChoice}</h4>
+                    </div>
 
-                <h4 id="3" onClick={(e) => {this.handleClick(e.currentTarget.id, this.rightAnswer, this.displayQuestion)}}>{this.fourthChoice}</h4>
+                    <div className="ind-question c">                  
+                        <h4 id="2" onClick={(e) => {this.handleClick(e.currentTarget.id, this.rightAnswer, this.displayQuestion)}}>{this.thirdChoice}</h4>
+                    </div>
+
+                    <div className="ind-question d">
+                        <h4 id="3" onClick={(e) => {this.handleClick(e.currentTarget.id, this.rightAnswer, this.displayQuestion)}}>{this.fourthChoice}</h4>
+                    </div>
+                </div>
 
                 <h5 className="Disapear">Number right:{this.props.correctQuestionArr.length}</h5>
                 <h5 className="Disapear">Number wrong: {this.props.incorrectQuestionArr.length}</h5>

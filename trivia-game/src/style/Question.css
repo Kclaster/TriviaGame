@@ -1,0 +1,41 @@
+.displayQuestion {
+    margin: 6vh 4vh;
+}
+
+.question-container {
+    margin: 6vh 4vw;
+    display: grid;
+    grid-template-columns: auto auto;
+    text-align: center;
+    justify-content: space-around;
+    grid-row-gap: 3vh;
+}
+
+.ind-question {
+    width: 30vw;
+    height: auto;
+    border: solid white 1px;
+    cursor: pointer;
+}
+
+.ind-question:active {
+    transform: translateY(4px);
+}
+
+
+.a {
+    background-color: rgb(172, 171, 171);    
+}
+
+.b {
+    background-color: rgb(150, 149, 149);
+}
+
+.c {
+    background-color: rgb(66, 66, 66);
+}
+
+.d {
+    background-color: rgb(14, 13, 13);
+}
+
