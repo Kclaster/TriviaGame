@@ -1,7 +1,6 @@
 import React from 'react';
 import Container from './Container';
-import Congratulations from './Congratulations';
-
+import '../style/App.css'
 
 
 class App extends React.Component {
@@ -10,7 +9,6 @@ class App extends React.Component {
         return (
             <div>
                 <Container />
-                <Congratulations />
             </div>
         );
     }

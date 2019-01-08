@@ -1,10 +1,9 @@
 import React from 'react';
-import Questions from './Questions';
 
-class Question extends React.Component {
+export default class Question extends React.Component {
     constructor(props) {
         super(props);
-        this.randomNumber = Math.floor(Math.random() * (Questions.length - 1));
+        this.randomNumber = Math.floor(Math.random() * (this.props.Questions.length - 1));
 
         this.state = {
             firstRound: true,
@@ -12,48 +11,48 @@ class Question extends React.Component {
         };
 
         const randomStart = this.randomNumber;
+        this.questionsRendered = [];
 
-        this.id = Questions[randomStart]["correct answer"];
+
+        this.id = this.props.Questions[randomStart]["correct answer"];
         this.handleClick = this.handleClick.bind(this);
-        this.question = Questions[randomStart];
-        this.displayQuestion = Questions[randomStart].question;
-        this.firstChoice = Questions[randomStart]["answer choices"][0];
-        this.secondChoice = Questions[randomStart]["answer choices"][1];
-        this.thirdChoice = Questions[randomStart]["answer choices"][2];
-        this.fourthChoice = Questions[randomStart]["answer choices"][3];
-        this.rightAnswer = Questions[randomStart]["answer"];
+        this.question = this.props.Questions[randomStart];
+        this.displayQuestion = this.props.Questions[randomStart].question;
+        this.firstChoice = this.props.Questions[randomStart]["answer choices"][0];
+        this.secondChoice = this.props.Questions[randomStart]["answer choices"][1];
+        this.thirdChoice = this.props.Questions[randomStart]["answer choices"][2];
+        this.fourthChoice = this.props.Questions[randomStart]["answer choices"][3];
+        this.rightAnswer = this.props.Questions[randomStart]["answer"];
     }
 
-    updateUI = () => {
-        const randomDigit = this.props.randomNum;
 
-        this.question = Questions[randomDigit];
-        this.displayQuestion = Questions[randomDigit].question;
-        this.firstChoice = Questions[randomDigit]["answer choices"][0];
-        this.secondChoice = Questions[randomDigit]["answer choices"][1];
-        this.thirdChoice = Questions[randomDigit]["answer choices"][2];
-        this.fourthChoice = Questions[randomDigit]["answer choices"][3];
-        this.rightAnswer = Questions[randomDigit]["answer"];
+    updateUI = () => {
+        let randomDigit = this.props.randomNum;
+        this.question = this.props.Questions[randomDigit];
+        this.displayQuestion = this.props.Questions[randomDigit].question;
+        this.firstChoice = this.props.Questions[randomDigit]["answer choices"][0];
+        this.secondChoice = this.props.Questions[randomDigit]["answer choices"][1];
+        this.thirdChoice = this.props.Questions[randomDigit]["answer choices"][2];
+        this.fourthChoice = this.props.Questions[randomDigit]["answer choices"][3];
+        this.rightAnswer = this.props.Questions[randomDigit]["answer"];
     }
 
     updateQuestions() {
         if (this.state.firstRound){
         var randomDigit=this.randomNumber;
         } else {
-        var randomDigit = this.props.randomNum;
+            randomDigit = this.props.randomNum;
         }
         this.setState({firstRound: false});
-        console.log(randomDigit);
-        this.test = Questions.splice(randomDigit, 1)
+        this.test = this.props.Questions.splice(randomDigit, 1)
     }
 
 
     handleClick(trigger, answer, question) {
-        this.updateQuestions();
-        this.count = Questions.length - 1
+        this.count = this.props.Questions.length - 1
         if (this.count > 0 ) {
+        this.updateQuestions();
         this.count--;
-
         if (parseInt(trigger) === answer){
             this.props.handleCorrect(question);
             } 
@@ -64,14 +63,13 @@ class Question extends React.Component {
       this.props.onRandomNumChange();   
         };
      
-     /////////////////////////////////////////////////////////////
-    // add else statement to display the results   
 
     render() {
         if (!this.state.firstRound) {
             this.updateUI();
+        } else {
+
         }
-        console.log(Questions);
         return (
             <div>
                 <h3>{this.displayQuestion}</h3>
@@ -83,14 +81,10 @@ class Question extends React.Component {
 
                 <h4 id="3" onClick={(e) => {this.handleClick(e.currentTarget.id, this.rightAnswer, this.displayQuestion)}}>{this.fourthChoice}</h4>
 
-                <h5 className="Disapear">Number right:{this.props.correctQuestionArr}</h5>
-                <h5 className="Disapear">Number wrong:{this.props.incorrectQuestionArr}</h5>
-                <h5>{this.props.randomNum}</h5>
+                <h5 className="Disapear">Number right:{this.props.correctQuestionArr.length}</h5>
+                <h5 className="Disapear">Number wrong: {this.props.incorrectQuestionArr.length}</h5>
             </div>
         );
     }
 }
-
-
-export default Question;
 
