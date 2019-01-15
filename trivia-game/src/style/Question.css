@@ -9,6 +9,7 @@
     text-align: center;
     justify-content: space-around;
     grid-row-gap: 3vh;
+    grid-column-gap: 4vw;
 }
 
 .ind-question {

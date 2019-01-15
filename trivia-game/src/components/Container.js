@@ -14,7 +14,7 @@ class Container extends React.Component {
         this.handleCorrectClick=this.handleCorrectClick.bind(this);
         this.handleIncorrectClick=this.handleIncorrectClick.bind(this);
         this.handleResetClick=this.handleResetClick.bind(this);
-        this.gamelength = 60000;
+        this.gamelength = 60;
 
         this.state = {
             //below creates a copy, not a reference
@@ -30,6 +30,11 @@ class Container extends React.Component {
             count: this.gamelength,
             displayCounter: true
         }
+    }
+
+
+    scoreboardTimer = () => {
+        setTimeout(() => this.setState({ show: true }), 2500)
     }
 
     handleRandomNumChange() {
@@ -49,7 +54,6 @@ class Container extends React.Component {
         this.setState({correct: false});
     };
 
-
     componentDidUpdate() {
         if (this.state.Questions.length === 0) {
             if (this.state.show) {
@@ -68,11 +72,10 @@ class Container extends React.Component {
         }
         if (!this.state.show) {
             if (this.state.count > 0) {
-        setTimeout(() => this.setState({ show: true}), 1500)
+                this.scoreboardTimer();
             }
         };
         };
-
 
     timer() {
         if (this.state.count > 0) {
@@ -109,7 +112,7 @@ class Container extends React.Component {
     };
 
     componenetWillUnmount () {
-        clearInterval(this.myInterval)
+        clearInterval(this.myInterval);
     }
 
     render() {
